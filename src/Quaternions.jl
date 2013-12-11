@@ -149,9 +149,13 @@ qrotation{T<:Real}(rotvec::Vector{T}) = qrotation(float(rotvec))
 rotationmatrix(q::Quaternion) = rotationmatrix_normalized(unit(q))
 
 rotationmatrix_normalized(q::Quaternion) =
-    [1-2*q.q1*q.q1-2*q.q2*q.q2  2*(q.q0*q.q1-q.q2*q.q3)    2*(q.q0*q.q2+q.q1*q.q3);
-     2*(q.q0*q.q1+q.q2*q.q3)    1-2*q.q0*q.q0-2*q.q2*q.q2  2*(q.q1*q.q2-q.q0*q.q3);
-     2*(q.q0*q.q2-q.q1*q.q3)    2*(q.q0*q.q3+q.q1*q.q2)    1-2*q.q0*q.q0-2*q.q1*q.q1]
+#     [1-2*q.q1*q.q1-2*q.q2*q.q2  2*(q.q0*q.q1-q.q2*q.q3)    2*(q.q0*q.q2+q.q1*q.q3);
+#      2*(q.q0*q.q1+q.q2*q.q3)    1-2*q.q0*q.q0-2*q.q2*q.q2  2*(q.q1*q.q2-q.q0*q.q3);
+#      2*(q.q0*q.q2-q.q1*q.q3)    2*(q.q0*q.q3+q.q1*q.q2)    1-2*q.q0*q.q0-2*q.q1*q.q1]
+
+    [1-2*q.q2*q.q2-2*q.q3*q.q3  2*(q.q1*q.q2+q.q0*q.q3)    2*(q.q1*q.q3-q.q0*q.q2);
+     2*(q.q1*q.q2-q.q0*q.q3)    1-2*q.q1*q.q1-2*q.q3*q.q3  2*(q.q2*q.q3+q.q0*q.q1);
+     2*(q.q1*q.q3+q.q0*q.q2)    2*(q.q2*q.q3-q.q0*q.q1)    1-2*q.q1*q.q1-2*q.q2*q.q2]
 
 
 function unit{T}(v::Vector{T})
